@@ -2191,10 +2191,17 @@ class PHPMailer
                     $this->smtp->hello($hello);
                     //Automatically enable TLS encryption if:
                     //* it's not disabled
+                    //* we are not connecting to localhost
                     //* we have openssl extension
                     //* we are not already using SSL
                     //* the server offers STARTTLS
-                    if ($this->SMTPAutoTLS && $sslext && 'ssl' !== $secure && $this->smtp->getServerExt('STARTTLS')) {
+                    if (
+                        $this->SMTPAutoTLS &&
+                        $this->Host !== 'localhost' &&
+                        $sslext &&
+                        $secure !== 'ssl' &&
+                        $this->smtp->getServerExt('STARTTLS')
+                    ) {
                         $tls = true;
                     }
                     if ($tls) {
@@ -4049,6 +4056,39 @@ class PHPMailer
     public function clearCustomHeaders()
     {
         $this->CustomHeader = [];
+    }
+
+    /**
+     * Clear a specific custom header.
+     */
+    public function clearCustomHeader($name)
+    {
+        foreach ($this->CustomHeader as $k => $pair) {
+            if ($pair[0] == $name) {
+                unset($this->CustomHeader[$k]);
+            }
+        }
+    }
+
+    /**
+     * Replace a custom header.
+     */
+    public function replaceCustomHeader($name, $value)
+    {
+        foreach ($this->CustomHeader as $k => $pair) {
+            if ($pair[0] == $name) {
+                if (strpbrk($name . $value, "\r\n") !== false) {
+                    if ($this->exceptions) {
+                        throw new Exception($this->lang('invalid_header'));
+                    }
+
+                    return false;
+                }
+                $this->CustomHeader[$k] = [$name, $value];
+            }
+        }
+
+        return true;
     }
 
     /**

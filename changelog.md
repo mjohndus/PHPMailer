@@ -1,5 +1,9 @@
 # PHPMailer Change Log
 
+## WIP
+* Escape dots in SMTP transaction ID patterns
+* Add link to [aboutmy.email](https://aboutmy.email) testing service in docs
+
 ## Version 6.9.1 (November 25th, 2023)
 * Finalise SendOauth2 example
 

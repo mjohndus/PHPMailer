@@ -146,7 +146,7 @@ jobs:
           max_attempts: 3
           retry_wait_seconds: 8
           command: |
-            sudo apt-get install -y libsqlite3-0 postfix
+            sudo apt-get install --fix-broken -y libsqlite3-0 postfix
             sudo systemctl stop postfix.service
 
       - name: Set up sendmail
@@ -169,10 +169,10 @@ jobs:
 
       - name: Send coverage report to Codecov
         if: ${{ success() && matrix.coverage == true }}
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
           files: ./build/logs/clover.xml
           fail_ci_if_error: true
           verbose: true
-          # see https://github.com/codecov/codecov-action/issues/557
-          token: ${{ secrets.CODECOV_TOKEN }}

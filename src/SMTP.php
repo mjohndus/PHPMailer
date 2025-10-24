@@ -35,7 +35,7 @@ class SMTP
      *
      * @var string
      */
-    const VERSION = '6.10.0';
+    const VERSION = '7.0.0';
 
     /**
      * SMTP line break constant.
@@ -205,6 +205,7 @@ class SMTP
         'Haraka' => '/[\d]{3} Message Queued \((.*)\)/',
         'ZoneMTA' => '/[\d]{3} Message queued as (.*)/',
         'Mailjet' => '/[\d]{3} OK queued as (.*)/',
+        'Gsmtp' => '/[\d]{3} 2\.0\.0 OK (.*) - gsmtp/',
     ];
 
     /**

@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -29,6 +29,8 @@ jobs:
           php-version: 'latest'
           coverage: none
           tools: cs2pr
+        env:
+          fail-fast: true
 
       # Install dependencies and handle caching in one go.
       # @link https://github.com/marketplace/actions/install-php-dependencies-with-composer
@@ -64,7 +66,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -75,6 +77,8 @@ jobs:
           ini-values: error_reporting=-1, display_errors=On, display_startup_errors=On
           coverage: none
           tools: cs2pr
+        env:
+          fail-fast: true
 
       # Install dependencies and handle caching in one go.
       # @link https://github.com/marketplace/actions/install-php-dependencies-with-composer
@@ -139,7 +143,7 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -177,6 +181,8 @@ jobs:
           coverage: ${{ matrix.coverage && 'xdebug' || 'none' }}
           ini-values: sendmail_path=/usr/sbin/sendmail -t -i, error_reporting=-1, display_errors=On, display_startup_errors=On
           extensions: ${{ steps.set_extensions.outputs.EXT }}
+        env:
+          fail-fast: true
 
       # Install dependencies and handle caching in one go.
       # @link https://github.com/marketplace/actions/install-php-dependencies-with-composer

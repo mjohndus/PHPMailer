@@ -1,5 +1,8 @@
 # PHPMailer Change Log
 
+## WIP
+* XOAUTH authentication with long tokens could report success when it had failed.
+
 ## Version 7.1.1 (May 18th, 2026)
 * Make encoding validator case-insensitive
 
